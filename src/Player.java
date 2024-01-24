@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
 TODO: -tanker
@@ -11,6 +12,9 @@ TODO: -tanker
         -INdex 20 out of bounds for length 20 når du trykker E på slutten
 
         -Må jo ha med så man kan gå med HJKL opp og ned
+
+        -Lage kart der det tiles lyser opp og du skal gå til den raskest mulig, bare glem insert mode for nå
+        -må relative linjenummere så man kan trykke f.eks 13k for å gå 13 opp
  */
 
 public class Player {
@@ -18,11 +22,15 @@ public class Player {
     private int x ;
     private int y;
     private int mapLevel;
+    private int timerX;
+    private int timerY;
+    private int score;
 
     public Player(int initialX, int initialY, int mapLevel) {
         this.x = initialX;
         this.y = initialY;
         this.mapLevel = mapLevel;
+        score = 0;
     }
 
     //Getters and Setters
@@ -267,8 +275,29 @@ public class Player {
         }
     }
 
+    public void randomTile() {
+        Random random = new Random();
+        timerX = random.nextInt(20);
+        timerY = random.nextInt(20);
+        if(y == timerY && x == timerX) { //fiks og hvis den er på hardblock
+            randomTile();
+        }
+    }
+
+    public void playerOnTimer() {
+        if(y == timerY && x == timerX) {
+            score++;
+            System.out.println("Your current score is " + score);
+            randomTile();
+        }
+    }
+
     public void draw(Graphics g) {
         g.drawImage(new ImageIcon("src/tiles/pigTile.png").getImage(), x * Game.TILE_SIZE, y * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, null);
+    }
+
+    public void drawTimerTile(Graphics g) {
+        g.drawImage(new ImageIcon("src/tiles/insertModeATile.png").getImage(), timerX * Game.TILE_SIZE, timerY * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, null);
     }
 
     public void update(int[][] tiles, ArrayList<Integer> hardBlocks) {

@@ -41,7 +41,7 @@ public class Game extends JFrame {
     private ArrayList<Integer> wordBlocks;
 
     public Game() {
-        tiles = Level.level2(tiles);
+        tiles = Level.level3(tiles);
 
         loadTileImages();
 
@@ -83,6 +83,8 @@ public class Game extends JFrame {
             setFocusable(true);
             addKeyListener(this);
 
+            player.randomTile();
+
             int delay = 16; // Adjust the delay based on your desired frame rate (e.g., for 60 FPS, use 16)
             timer = new Timer(delay, MapPanel.this);
             timer.start();
@@ -102,11 +104,14 @@ public class Game extends JFrame {
             }
 
             player.draw(g);
+
+            player.drawTimerTile(g);
         }
 
         public void actionPerformed(ActionEvent e) {
             //update player state from timer
             player.update(tiles, hardBlocks);
+            player.playerOnTimer();
             repaint();
             //TODO: her kan jeg bytte på tiles for animasjoner kanskje, potensilet, sånn at den bytter ut mellom to water tiles for animasjoner
         }
@@ -172,6 +177,7 @@ public class Game extends JFrame {
                     break;
                 case KeyEvent.VK_V:
                     player.moveToEndOfPage(tiles, wordBlocks);
+                    break;
             }
 
             repaint();
