@@ -275,29 +275,32 @@ public class Player {
         }
     }
 
-    public void randomTile() {
+    //Creates a random point tile
+    public void randomTile(int[][] tiles, ArrayList<Integer> hardBlocks) {
         Random random = new Random();
         timerX = random.nextInt(20);
         timerY = random.nextInt(20);
-        if(y == timerY && x == timerX) { //fiks og hvis den er på hardblock
-            randomTile();
+
+        if((y == timerY && x == timerX) || hardBlocks.contains(tiles[timerY][timerX])) { //akruatt nå går den på alt utenom
+            randomTile(tiles, hardBlocks);
         }
     }
 
-    public void playerOnTimer() {
+    //Increments score and creates a new random point tile
+    public void playerOnTimer(int[][] tiles, ArrayList<Integer> hardBlocks) {
         if(y == timerY && x == timerX) {
             score++;
             System.out.println("Your current score is " + score);
-            randomTile();
+            randomTile(tiles, hardBlocks);
         }
     }
 
     public void draw(Graphics g) {
-        g.drawImage(new ImageIcon("src/tiles/pigTile.png").getImage(), x * Game.TILE_SIZE, y * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, null);
+        g.drawImage(new ImageIcon(getClass().getResource("tiles/pigTile.png")).getImage(), x * Game.TILE_SIZE, y * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, null);
     }
 
     public void drawTimerTile(Graphics g) {
-        g.drawImage(new ImageIcon("src/tiles/insertModeATile.png").getImage(), timerX * Game.TILE_SIZE, timerY * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, null);
+        g.drawImage(new ImageIcon("src/tiles/coinTile.png").getImage(), timerX * Game.TILE_SIZE, timerY * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, null);
     }
 
     public void update(int[][] tiles, ArrayList<Integer> hardBlocks) {

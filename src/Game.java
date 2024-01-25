@@ -57,21 +57,15 @@ public class Game extends JFrame {
     private void loadTileImages() {
         tileImages = new HashMap<>();
 
-        tileImages.put(0, new ImageIcon("src/tiles/treeTile.png").getImage());
-        tileImages.put(1, new ImageIcon("src/tiles/grassTile.png").getImage());
-        tileImages.put(2, new ImageIcon("src/tiles/waterTile.png").getImage());
+        tileImages.put(0, new ImageIcon(getClass().getResource("tiles/treeTile.png")).getImage());
+        tileImages.put(1, new ImageIcon(getClass().getResource("tiles/grassTile.png")).getImage());
+        tileImages.put(2, new ImageIcon(getClass().getResource("tiles/waterTile.png")).getImage());
 
         hardBlocks = new ArrayList<>();
         hardBlocks.add(2);
 
         wordBlocks = new ArrayList<>();
         wordBlocks.add(0);
-
-        /*
-        tileImages.put(0, new ImageIcon(getClass().getResource("src/tiles/tile_0000.png")).getImage());
-        tileImages.put(1, new ImageIcon(getClass().getResource("src/tiles/tile_0004.png")).getImage());
-        tileImages.put(2, new ImageIcon(getClass().getResource("src/tiles/tile_0073.png")).getImage());
-         */
     }
 
     private class MapPanel extends JPanel implements KeyListener, ActionListener {
@@ -83,7 +77,7 @@ public class Game extends JFrame {
             setFocusable(true);
             addKeyListener(this);
 
-            player.randomTile();
+            player.randomTile(tiles, hardBlocks);
 
             int delay = 16; // Adjust the delay based on your desired frame rate (e.g., for 60 FPS, use 16)
             timer = new Timer(delay, MapPanel.this);
@@ -111,7 +105,7 @@ public class Game extends JFrame {
         public void actionPerformed(ActionEvent e) {
             //update player state from timer
             player.update(tiles, hardBlocks);
-            player.playerOnTimer();
+            player.playerOnTimer(tiles, hardBlocks);
             repaint();
             //TODO: her kan jeg bytte på tiles for animasjoner kanskje, potensilet, sånn at den bytter ut mellom to water tiles for animasjoner
         }
