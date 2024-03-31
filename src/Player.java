@@ -300,7 +300,7 @@ public class Player {
     }
 
     public void drawTimerTile(Graphics g) {
-        g.drawImage(new ImageIcon("src/tiles/coinTile.png").getImage(), timerX * Game.TILE_SIZE, timerY * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, null);
+        g.drawImage(new ImageIcon(getClass().getResource("tiles/coinTile.png")).getImage(), timerX * Game.TILE_SIZE, timerY * Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE, null);
     }
 
     public void update(int[][] tiles, ArrayList<Integer> hardBlocks) {

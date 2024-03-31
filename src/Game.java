@@ -73,7 +73,7 @@ public class Game extends JFrame {
         private Player player;
 
         public MapPanel() {
-            player = new Player(1, 1, 1); //TODO: egt 2, 8
+            player = new Player(1, 1, 3); //TODO: egt 2, 8
             setFocusable(true);
             addKeyListener(this);
 
@@ -118,27 +118,26 @@ public class Game extends JFrame {
         @Override
         public void keyPressed(KeyEvent e) {
 
-            int keyCode = e.getKeyCode();
+            char keyCode = e.getKeyChar();
 
             switch (keyCode) {
-                case KeyEvent.VK_K:
+                case 'k':
                     player.moveUp(tiles, hardBlocks);
                     break;
-                case KeyEvent.VK_J:
+                case 'j':
                     player.moveDown(tiles, hardBlocks);
                     break;
-                case KeyEvent.VK_H:
+                case 'h':
                     try {
                         player.moveLeft(tiles, hardBlocks);
                         break;
                     }
                     catch(Exception p) {
                         player.setX(18);
-                        player.setMapLevel(player.getMapLevel() - 1);
 
                         tiles = Level.level1(tiles);
                     }
-                case KeyEvent.VK_L:
+                case 'l':
                     try {
                         player.moveRight(tiles, hardBlocks);
                         break;
@@ -146,32 +145,33 @@ public class Game extends JFrame {
                     catch(Exception p) {
                         player.setX(1);
                         player.setY(1);
-                        player.setMapLevel(player.getMapLevel() - 1);
 
                         tiles = Level.level2(tiles);
                         //TODO: kan bruke switch(player.getMapLevel), for å finne mappet
                     }
-                case KeyEvent.VK_W:
+                case 'w':
                     player.moveW(tiles, wordBlocks);
                     break;
-                case KeyEvent.VK_E:
+                case 'e':
                     player.moveE(tiles, wordBlocks);
                     break;
-                case KeyEvent.VK_B:
+                case 'b':
                     player.moveB(tiles, wordBlocks);
                     break;
-                case KeyEvent.VK_Z: //TODO: funker ikke å skrive $???
+                case '$':
                     player.moveToStartOfLine(tiles, wordBlocks);
                     break;
-                case KeyEvent.VK_X: //TODO: funker ikke å skrive _
+                case '_':
                     player.moveToEndOfLine(tiles, wordBlocks);
                     break;
                 case KeyEvent.VK_C:
                     player.moveToStartOfPage(tiles, wordBlocks);
                     break;
-                case KeyEvent.VK_V:
-                    player.moveToEndOfPage(tiles, wordBlocks);
-                    break;
+                case 'g':
+                    if(e.isShiftDown()) {
+                        player.moveToEndOfPage(tiles, wordBlocks);
+                        break;
+                    }
             }
 
             repaint();
