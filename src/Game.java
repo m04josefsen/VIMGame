@@ -71,6 +71,7 @@ public class Game extends JFrame {
     private class MapPanel extends JPanel implements KeyListener, ActionListener {
         private Timer timer;
         private Player player;
+        private int gCount;
 
         public MapPanel() {
             player = new Player(1, 1, 3); //TODO: egt 2, 8
@@ -119,15 +120,19 @@ public class Game extends JFrame {
         public void keyPressed(KeyEvent e) {
 
             char keyCode = e.getKeyChar();
+            int key = e.getKeyCode();
 
             switch (keyCode) {
                 case 'k':
                     player.moveUp(tiles, hardBlocks);
+                    gCount = 0;
                     break;
                 case 'j':
                     player.moveDown(tiles, hardBlocks);
+                    gCount = 0;
                     break;
                 case 'h':
+                    gCount = 0;
                     try {
                         player.moveLeft(tiles, hardBlocks);
                         break;
@@ -138,6 +143,7 @@ public class Game extends JFrame {
                         tiles = Level.level1(tiles);
                     }
                 case 'l':
+                    gCount = 0;
                     try {
                         player.moveRight(tiles, hardBlocks);
                         break;
@@ -151,25 +157,33 @@ public class Game extends JFrame {
                     }
                 case 'w':
                     player.moveW(tiles, wordBlocks);
+                    gCount = 0;
                     break;
                 case 'e':
                     player.moveE(tiles, wordBlocks);
+                    gCount = 0;
                     break;
                 case 'b':
                     player.moveB(tiles, wordBlocks);
+                    gCount = 0;
                     break;
                 case '$':
                     player.moveToStartOfLine(tiles, wordBlocks);
+                    gCount = 0;
                     break;
                 case '_':
                     player.moveToEndOfLine(tiles, wordBlocks);
+                    gCount = 0;
                     break;
-                case KeyEvent.VK_C:
-                    player.moveToStartOfPage(tiles, wordBlocks);
+                case 'G':
+                    player.moveToEndOfPage(tiles, wordBlocks);
+                    gCount = 0;
                     break;
                 case 'g':
-                    if(e.isShiftDown()) {
-                        player.moveToEndOfPage(tiles, wordBlocks);
+                    gCount++;
+                    if(gCount == 2) {
+                        player.moveToStartOfPage(tiles, wordBlocks);
+                        gCount = 0;
                         break;
                     }
             }
