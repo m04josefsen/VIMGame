@@ -58,6 +58,14 @@ public class Player {
         this.mapLevel = mapLevel;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public void moveUp(int[][] tiles, ArrayList<Integer> hardBlocks) {
         if(!hardBlocks.contains(tiles[y-1][x])) {
             this.y -= 1;
@@ -293,6 +301,15 @@ public class Player {
             System.out.println("Your current score is " + score);
             randomTile(tiles, hardBlocks);
         }
+    }
+
+    public boolean isFinished() {
+        if(score == 5) {
+            System.out.println("DU ER FERDIG!!");
+            return true;
+        }
+        return false;
+        //return score == 20;
     }
 
     public void draw(Graphics g) {

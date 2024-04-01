@@ -41,7 +41,7 @@ public class Game extends JFrame {
     private ArrayList<Integer> wordBlocks;
 
     public Game() {
-        tiles = Level.level3(tiles);
+        tiles = Level.timerLevel(tiles);
 
         loadTileImages();
 
@@ -108,6 +108,11 @@ public class Game extends JFrame {
             player.update(tiles, hardBlocks);
             player.playerOnTimer(tiles, hardBlocks);
             repaint();
+
+            if(player.isFinished()) {
+                tiles = Level.level1(tiles); //TODO: HER SKAL DEN GÅ TIL ET MAP SOM SIER HVOR MYE TID DU BRUKTE??
+                player.setScore(0);
+            }
             //TODO: her kan jeg bytte på tiles for animasjoner kanskje, potensilet, sånn at den bytter ut mellom to water tiles for animasjoner
         }
 
@@ -181,6 +186,7 @@ public class Game extends JFrame {
                     break;
                 case 'g':
                     gCount++;
+                    //TODO: hvis jeg får flere counts kan jeg kanskje bruke en metode for å resette, men det blir vanskelig også
                     if(gCount == 2) {
                         player.moveToStartOfPage(tiles, wordBlocks);
                         gCount = 0;
