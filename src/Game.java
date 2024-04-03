@@ -19,6 +19,7 @@ public class Game extends JFrame {
 
     OG PÅ LEVEL 1, SAMLE X MYNTER FOR Å GÅ VIDERE
     PÅ LEVEL 2, MÅ SAMLE 5 MYNTER FOR Å GÅ VIDERE TIL TRIALS
+    MYNTENE KAN SPAWNES PÅ STARTEN OG SLUTTEN FOR Å OPPFORDRE gg og G
 
     Og hvert kart lærer du noe nytt:
         -første kart lærer du hjkl
@@ -155,6 +156,7 @@ public class Game extends JFrame {
 
                             tiles = Level.level2(tiles);
                             player.setMapLevel(2);
+                            player.randomTile(tiles, hardBlocks);
                             break;
                         }
                 }
