@@ -292,6 +292,8 @@ public class Player {
         if((y == timerY && x == timerX) || hardBlocks.contains(tiles[timerY][timerX])) { //akruatt nå går den på alt utenom
             randomTile(tiles, hardBlocks);
         }
+
+        //TODO: DENNE SKAL KUN BLI GENERERT PÅ TILE CHALLENGE GREIA
     }
 
     //Increments score and creates a new random point tile
